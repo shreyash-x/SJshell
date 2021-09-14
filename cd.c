@@ -33,15 +33,13 @@ void exec_cd(char *directory_path, int size)
         {
             goto_homedir();
         }
-        else if (directory_path[0] != '/')
+        else if (directory_path[0] == '~')
         {
             char cd_path[INT_MAX];
+            strcpy(cd_path, home_path);
+            strcat(cd_path, directory_path + 1);
             char temp[INT_MAX];
             getcwd(temp, INT_MAX);
-            getcwd(cd_path, INT_MAX);
-            strcat(cd_path, "/");
-            strcat(cd_path, directory_path);
-
             if (chdir(cd_path) < 0)
             {
                 printf("cd: %s: No such file or directory\n", cd_path);
@@ -49,7 +47,7 @@ void exec_cd(char *directory_path, int size)
             }
             strcpy(prev_dir, temp);
         }
-        else if (directory_path[0] == '/')
+        else
         {
             char temp[INT_MAX];
             getcwd(temp, INT_MAX);
