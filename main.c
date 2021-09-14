@@ -1,12 +1,11 @@
 #include "prompt.h"
 #include "echo.h"
 #include "pwd.h"
+#include "cd.h"
 
 int main()
 {
-    char home_path[INT_MAX];
-    getcwd(home_path, INT_MAX);
-
+    init_homedir();
     while (1)
     {
         char *input_string = NULL;
@@ -39,6 +38,10 @@ int main()
         else if (strcmp(input_tokens[0], "pwd") == 0)
         {
             get_pwd();
+        }
+        else if (strcmp(input_tokens[0], "cd") == 0)
+        {
+            exec_cd(input_tokens[1], itr);
         }
     }
 }

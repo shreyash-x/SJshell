@@ -9,7 +9,10 @@
 
 // Global values
 #define INT_MAX (int)1e4 + 9
+char home_path[INT_MAX];
+char prev_dir[INT_MAX];
 
 // Functions
+void init_homedir();
 
 #endif
