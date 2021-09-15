@@ -15,7 +15,7 @@
 #include <langinfo.h>
 
 // Global values
-#define INT_MAX (int)1e4 + 9
+#define INT_MAX (int)1e3 + 9
 char home_path[INT_MAX];
 char prev_dir[INT_MAX];
 
