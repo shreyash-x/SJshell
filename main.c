@@ -2,6 +2,7 @@
 #include "echo.h"
 #include "pwd.h"
 #include "cd.h"
+#include "ls.h"
 
 int main()
 {
@@ -57,6 +58,10 @@ int main()
             else if (strcmp(input_tokens[0], "cd") == 0)
             {
                 exec_cd(input_tokens[1], itr);
+            }
+            else if (strcmp(input_tokens[0], "ls") == 0)
+            {
+                exec_ls(input_tokens, itr);
             }
         }
     }

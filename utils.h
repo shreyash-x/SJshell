@@ -6,6 +6,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <dirent.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <pwd.h>
+#include <grp.h>
+#include <time.h>
+#include <langinfo.h>
 
 // Global values
 #define INT_MAX (int)1e4 + 9
