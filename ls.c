@@ -20,6 +20,10 @@ int isFile(const char *name)
 
 void ls_for_files(char file_paths[][INT_MAX], int num_paths, int detailed_view, int num_files)
 {
+    if(num_files == 0)
+        return;
+
+
     if (detailed_view == 0)
     {
         for (int i = 0; i < num_files; i++)
@@ -138,7 +142,7 @@ void ls(char dir_paths[][INT_MAX], int show_hidden_files, int detailed_view, int
             struct stat directory;
             struct tm *time;
             char date[INT_MAX], final_date[13];
-            long long int total;
+            long long int total=0;
 
             if (dir == 0)
             {

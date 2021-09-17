@@ -3,10 +3,13 @@
 #include "pwd.h"
 #include "cd.h"
 #include "ls.h"
+#include "process.h"
 
 int main()
 {
     init_homedir();
+    process_size = 0;
+
     while (1)
     {
         char *input_string = NULL;
@@ -62,6 +65,18 @@ int main()
             else if (strcmp(input_tokens[0], "ls") == 0)
             {
                 exec_ls(input_tokens, itr);
+            }
+            else if (strcmp(input_tokens[itr - 1],"&")==0)
+            {
+                // Background Process
+                itr--;
+                create_process_background(input_tokens, commands[i], itr);
+            }
+            else
+            {
+                // printf("%s %ld\n",input_tokens[itr-1],strlen(input_tokens[itr-1]));
+                // Foreground Process
+                create_process_foreground(input_tokens, commands[i], itr);
             }
         }
     }
