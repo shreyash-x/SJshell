@@ -4,18 +4,24 @@
 #include "cd.h"
 #include "ls.h"
 #include "process.h"
+#include "trackbg.h"
 
 int main()
 {
     init_homedir();
     process_size = 0;
+    for (int i = 0; i < INT_MAX; i++)
+    {
+        process_arr[i].pid = -1;
+    }
+    signal(SIGCHLD, background_process_signal);
 
     while (1)
     {
         char *input_string = NULL;
 
         // Generating Prompt
-        get_prompt(home_path);
+        get_prompt();
 
         // Taking Input
         size_t n = 0;
@@ -66,7 +72,7 @@ int main()
             {
                 exec_ls(input_tokens, itr);
             }
-            else if (strcmp(input_tokens[itr - 1],"&")==0)
+            else if (strcmp(input_tokens[itr - 1], "&") == 0)
             {
                 // Background Process
                 itr--;

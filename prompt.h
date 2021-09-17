@@ -2,6 +2,6 @@
 #define _PROMPT__
 
 #include "utils.h"
-void get_prompt(char *home_path);
+void get_prompt();
 
 #endif

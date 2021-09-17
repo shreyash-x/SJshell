@@ -1,6 +1,6 @@
 #include "prompt.h"
 
-void get_prompt(char *home_path)
+void get_prompt()
 {
     char host_name[INT_MAX], path[INT_MAX];
     char *env = getenv("LOGNAME");

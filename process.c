@@ -7,7 +7,7 @@ void create_process_background(char input_tokens[][INT_MAX], char command[], int
     int arr_size = 0;
     for (int i = 0; i < size; i++)
     {
-        temp_arr[i]=input_tokens[i];
+        temp_arr[i] = input_tokens[i];
         arr_size++;
     }
     // for(int i=0;i<size;i++)
@@ -46,7 +46,7 @@ void create_process_foreground(char input_tokens[][INT_MAX], char command[], int
     int arr_size = 0;
     for (int i = 0; i < size; i++)
     {
-        temp_arr2[i]=input_tokens[i];
+        temp_arr2[i] = input_tokens[i];
         arr_size++;
     }
 
@@ -76,13 +76,13 @@ void create_process_foreground(char input_tokens[][INT_MAX], char command[], int
         signal(SIGTTIN, SIG_IGN);
         // Setting group pid of stdin and stdout
         tcsetpgrp(0, pid);
-        tcsetpgrp(1, pid);
+        // tcsetpgrp(1, pid);
         // Get status for stopped children
         int status;
         waitpid(pid, &status, WUNTRACED);
         // Re setting process group id of stdin and stdout
         tcsetpgrp(0, cur_pgid);
-        tcsetpgrp(1, cur_pgid);
+        // tcsetpgrp(1, cur_pgid);
         // Resetting the signals to default
         signal(SIGTTOU, SIG_DFL);
         signal(SIGTTIN, SIG_DFL);
