@@ -5,6 +5,7 @@
 #include "ls.h"
 #include "process.h"
 #include "trackbg.h"
+#include "repeat.h"
 
 int main()
 {
@@ -55,8 +56,11 @@ int main()
                 itr++;
                 token = strtok(NULL, delimiter);
             }
-
-            if (strcmp(input_tokens[0], "echo") == 0)
+            if (strcmp(input_tokens[0], "repeat") == 0)
+            {
+                exec_repeat(input_tokens, itr, commands[i]);
+            }
+            else if (strcmp(input_tokens[0], "echo") == 0)
             {
                 get_echo(input_tokens, itr);
             }
