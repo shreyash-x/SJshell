@@ -37,6 +37,8 @@ void create_process_background(char input_tokens[][INT_MAX], char command[], int
         strcpy(process_arr[process_size].process_name, command);
         process_arr[process_size].pid = pid;
         process_size++;
+
+        printf("%d\n", pid);
     }
 }
 void create_process_foreground(char input_tokens[][INT_MAX], char command[], int size)
