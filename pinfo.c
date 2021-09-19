@@ -62,6 +62,38 @@ void pinfo(pid_t pid, int pid_given)
         executable_path[i] = '\0';
 
     readlink(address_string, executable_path, INT_MAX);
+    // Assigning home_path as ~
+    int s1 = strlen(home_path);
+    int s2 = strlen(executable_path);
+
+    // finding difference point in home_path and path
+    int diff_pt;
+    for (diff_pt = 0; diff_pt < s1 && diff_pt < s2; diff_pt++)
+    {
+        if (home_path[diff_pt] != executable_path[diff_pt])
+        {
+            break;
+        }
+    }
+
+    if (diff_pt == s1)
+    {
+        if (s2 > s1 && executable_path[s1] == '/')
+        {
+            executable_path[0] = '~';
+            int i;
+            for (i = s1; i < s2; i++)
+            {
+                executable_path[i + 1 - s1] = executable_path[i];
+            }
+            executable_path[i + 1 - s1] = '\0';
+        }
+        else if (s1 == s2)
+        {
+            executable_path[0] = '~';
+            executable_path[1] = '\0';
+        }
+    }
 
     printf("Executable Path -- %s\n", executable_path);
 }
