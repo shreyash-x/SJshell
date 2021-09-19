@@ -1,5 +1,42 @@
 #include "ls.h"
 
+int check_if_old_that_6mnths(char date[])
+{
+    // Calculating current time
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    int cyear, cmonth;
+    cyear = tm.tm_year + 1900;
+    cmonth = tm.tm_mon + 1;
+
+    int dyear, dmonth;
+    char temp[10];
+    for (int i = 4; i <= 6; i++)
+        temp[i - 4] = date[i];
+    temp[3] = '\0';
+    dmonth = (strcmp("Jan", temp) == 0) ? 1 : (strcmp("Feb", temp) == 0) ? 2
+                                          : (strcmp("Mar", temp) == 0)   ? 3
+                                          : (strcmp("Apr", temp) == 0)   ? 4
+                                          : (strcmp("May", temp) == 0)   ? 5
+                                          : (strcmp("Jun", temp) == 0)   ? 6
+                                          : (strcmp("Jul", temp) == 0)   ? 7
+                                          : (strcmp("Aug", temp) == 0)   ? 8
+                                          : (strcmp("Sep", temp) == 0)   ? 9
+                                          : (strcmp("Oct", temp) == 0)   ? 10
+                                          : (strcmp("Nov", temp) == 0)   ? 11
+                                                                         : 12;
+    strcpy(temp, "");
+    for (int i = 20; i <= 23; i++)
+        temp[i - 20] = date[i];
+    temp[4] = '\0';
+    dyear = atoi(temp);
+
+    if ((cyear - dyear) * 12 + (cmonth - dmonth) >= 6)
+        return 1;
+    else
+        return 0;
+}
+
 int isFile(const char *name)
 {
     DIR *directory = opendir(name);
@@ -20,9 +57,8 @@ int isFile(const char *name)
 
 void ls_for_files(char file_paths[][INT_MAX], int num_paths, int detailed_view, int num_files)
 {
-    if(num_files == 0)
+    if (num_files == 0)
         return;
-
 
     if (detailed_view == 0)
     {
@@ -81,12 +117,15 @@ void ls_for_files(char file_paths[][INT_MAX], int num_paths, int detailed_view, 
                 final_date[k++] = date[i];
             }
             final_date[k] = '\0';
+            if (check_if_old_that_6mnths(date) == 1)
+            {
+                int p = 20;
+                final_date[k - 5] = ' ';
+                for (int i = k - 4; i < k; i++)
+                    final_date[i] = date[p++];
+            }
 
-            printf(" %2d", num_links);
-            printf(" %8.8s", user_name);
-            printf(" %8.8s", group_name);
-            printf(" %10lld", file_size);
-            printf(" %s %s\n", final_date, path);
+            printf(" %2d  %8.8s  %8.8s %10lld %s %s\n", num_links, user_name, group_name, file_size, final_date, path);
         }
         if (num_paths > 0)
             printf("\n");
@@ -142,7 +181,7 @@ void ls(char dir_paths[][INT_MAX], int show_hidden_files, int detailed_view, int
             struct stat directory;
             struct tm *time;
             char date[INT_MAX], final_date[13];
-            long long int total=0;
+            long long int total = 0;
 
             if (dir == 0)
             {
@@ -215,18 +254,22 @@ void ls(char dir_paths[][INT_MAX], int show_hidden_files, int detailed_view, int
                 group_name = getgrgid(directory.st_gid)->gr_name;
                 time = localtime(&directory.st_mtime);
                 strftime(date, INT_MAX, nl_langinfo(D_T_FMT), time);
+
                 int k = 0;
                 for (int i = 4; i <= 15; i++)
                 {
                     final_date[k++] = date[i];
                 }
                 final_date[k] = '\0';
+                if (check_if_old_that_6mnths(date) == 1)
+                {
+                    int p = 20;
+                    final_date[k - 5] = ' ';
+                    for (int i = k - 4; i < k; i++)
+                        final_date[i] = date[p++];
+                }
 
-                printf(" %2d", num_links);
-                printf(" %8.8s", user_name);
-                printf(" %8.8s", group_name);
-                printf(" %10lld", file_size);
-                printf(" %s %s\n", final_date, d->d_name);
+                printf(" %2d  %8.8s  %8.8s %10lld %s %s\n", num_links, user_name, group_name, file_size, final_date, d->d_name);
             }
             closedir(dir);
             if (num_paths > 1 && i != num_paths - 1)

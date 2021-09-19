@@ -6,6 +6,7 @@
 #include "process.h"
 #include "trackbg.h"
 #include "repeat.h"
+#include "pinfo.h"
 
 int main()
 {
@@ -75,6 +76,13 @@ int main()
             else if (strcmp(input_tokens[0], "ls") == 0)
             {
                 exec_ls(input_tokens, itr);
+            }
+            else if (strcmp(input_tokens[0], "pinfo") == 0)
+            {
+                if (itr == 1)
+                    pinfo(0, 0);
+                else
+                    pinfo(atoi(input_tokens[1]), 1);
             }
             else if (strcmp(input_tokens[itr - 1], "&") == 0)
             {
