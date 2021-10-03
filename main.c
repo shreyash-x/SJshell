@@ -7,16 +7,11 @@
 #include "trackbg.h"
 #include "repeat.h"
 #include "pinfo.h"
+#include "redirect.h"
 
 int main()
 {
-    init_homedir();
-    process_size = 0;
-    for (int i = 0; i < INT_MAX; i++)
-    {
-        process_arr[i].pid = -1;
-    }
-    signal(SIGCHLD, background_process_signal);
+    init_shell();
 
     while (1)
     {
@@ -48,7 +43,7 @@ int main()
             // Tokenizing command
             char input_tokens[100][INT_MAX];
             int itr = 0;
-            char delimiter[2] = " ";
+            char delimiter[5] = " \t";
             char *token;
             token = strtok(commands[i], delimiter);
             while (token != NULL)
@@ -57,6 +52,9 @@ int main()
                 itr++;
                 token = strtok(NULL, delimiter);
             }
+
+            itr = check_redirection(input_tokens, itr);
+
             if (strcmp(input_tokens[0], "repeat") == 0)
             {
                 exec_repeat(input_tokens, itr, commands[i]);
@@ -96,6 +94,8 @@ int main()
                 // Foreground Process
                 create_process_foreground(input_tokens, commands[i], itr);
             }
+            dup2(default_input_FD, STDIN_FILENO);
+            dup2(default_output_FD, STDOUT_FILENO);
         }
     }
 }

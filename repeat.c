@@ -6,6 +6,9 @@
 #include "ls.h"
 #include "process.h"
 #include "trackbg.h"
+#include "repeat.h"
+#include "pinfo.h"
+#include "redirect.h"
 
 void exec_repeat(char input_tokens[][INT_MAX], int itr, char command[])
 {
@@ -33,6 +36,13 @@ void exec_repeat(char input_tokens[][INT_MAX], int itr, char command[])
         else if (strcmp(input_tokens[0], "ls") == 0)
         {
             exec_ls(input_tokens, itr);
+        }
+        else if (strcmp(input_tokens[0], "pinfo") == 0)
+        {
+            if (itr == 1)
+                pinfo(0, 0);
+            else
+                pinfo(atoi(input_tokens[1]), 1);
         }
         else
         {
