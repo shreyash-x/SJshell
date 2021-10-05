@@ -9,6 +9,7 @@
 #include "repeat.h"
 #include "pinfo.h"
 #include "redirect.h"
+#include "execute.h"
 
 void exec_repeat(char input_tokens[][INT_MAX], int itr, char command[])
 {
@@ -21,33 +22,6 @@ void exec_repeat(char input_tokens[][INT_MAX], int itr, char command[])
 
     while (repetitions-- > 0)
     {
-        if (strcmp(input_tokens[0], "echo") == 0)
-        {
-            get_echo(input_tokens, itr);
-        }
-        else if (strcmp(input_tokens[0], "pwd") == 0)
-        {
-            get_pwd();
-        }
-        else if (strcmp(input_tokens[0], "cd") == 0)
-        {
-            exec_cd(input_tokens[1], itr);
-        }
-        else if (strcmp(input_tokens[0], "ls") == 0)
-        {
-            exec_ls(input_tokens, itr);
-        }
-        else if (strcmp(input_tokens[0], "pinfo") == 0)
-        {
-            if (itr == 1)
-                pinfo(0, 0);
-            else
-                pinfo(atoi(input_tokens[1]), 1);
-        }
-        else
-        {
-            // Foreground Process
-            create_process_foreground(input_tokens, command, itr);
-        }
+        execute(input_tokens, itr, command);
     }
 }

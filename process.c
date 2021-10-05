@@ -32,6 +32,10 @@ void create_process_background(char input_tokens[][INT_MAX], char command[], int
     }
     else // pid > 0
     {
+        // reset fds
+        dup2(default_input_FD, STDIN_FILENO);
+        dup2(default_output_FD, STDOUT_FILENO);
+
         setpgid(pid, pid);
 
         strcpy(process_arr[process_size].process_name, command);
@@ -71,6 +75,10 @@ void create_process_foreground(char input_tokens[][INT_MAX], char command[], int
     }
     else // pid > 0
     {
+        // reset fds
+        dup2(default_input_FD, STDIN_FILENO);
+        dup2(default_output_FD, STDOUT_FILENO);
+
         // Process group id of the shell process
         pid_t cur_pgid = getpgid(getpid());
         // Ignoring Read Write signals. Prevents errors in tcsetgrp()

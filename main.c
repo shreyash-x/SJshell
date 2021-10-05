@@ -8,6 +8,7 @@
 #include "repeat.h"
 #include "pinfo.h"
 #include "redirect.h"
+#include "pipe.h"
 
 int main()
 {
@@ -45,12 +46,31 @@ int main()
             int itr = 0;
             char delimiter[5] = " \t";
             char *token;
+            char temp[INT_MAX];
+            strcpy(temp, commands[i]);
             token = strtok(commands[i], delimiter);
             while (token != NULL)
             {
                 strcpy(input_tokens[itr], token);
                 itr++;
                 token = strtok(NULL, delimiter);
+            }
+            strcpy(commands[i], temp);
+
+            int hasPipe = 0;
+            for (int j = 0; j < itr; j++)
+            {
+                if (strcmp(input_tokens[j], "|") == 0)
+                {
+                    hasPipe = 1;
+                    break;
+                }
+            }
+
+            if (hasPipe)
+            {
+                exec_pipe(input_tokens, itr, commands[i]);
+                continue;
             }
 
             itr = check_redirection(input_tokens, itr);
@@ -90,7 +110,6 @@ int main()
             }
             else
             {
-                // printf("%s %ld\n",input_tokens[itr-1],strlen(input_tokens[itr-1]));
                 // Foreground Process
                 create_process_foreground(input_tokens, commands[i], itr);
             }
