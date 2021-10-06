@@ -9,6 +9,7 @@
 #include "pinfo.h"
 #include "redirect.h"
 #include "pipe.h"
+#include "jobs.h"
 
 int main()
 {
@@ -101,6 +102,25 @@ int main()
                     pinfo(0, 0);
                 else
                     pinfo(atoi(input_tokens[1]), 1);
+            }
+            else if (strcmp(input_tokens[0], "jobs") == 0)
+            {
+                int check = 0;
+                if (itr > 1)
+                {
+                    for (int k = 1; k < itr; k++)
+                    {
+                        if (strcmp(input_tokens[k], "-r") == 0)
+                        {
+                            check = 1;
+                        }
+                        else if (strcmp(input_tokens[k], "-s") == 0)
+                        {
+                            check = -1;
+                        }
+                    }
+                }
+                jobs(check);
             }
             else if (strcmp(input_tokens[itr - 1], "&") == 0)
             {

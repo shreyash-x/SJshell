@@ -33,7 +33,6 @@ struct process_info
 {
     char process_name[INT_MAX];
     pid_t pid;
-    int status;
 };
 process_info process_arr[INT_MAX];
 
