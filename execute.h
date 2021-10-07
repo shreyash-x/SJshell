@@ -12,6 +12,9 @@
 #include "repeat.h"
 #include "pinfo.h"
 #include "redirect.h"
+#include "jobs.h"
+#include "pipe.h"
+#include "sig.h"
 void execute(char input_tokens[][INT_MAX], int itr, char command[]);
 
 #endif

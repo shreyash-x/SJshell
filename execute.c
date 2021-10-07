@@ -2,6 +2,7 @@
 
 void execute(char input_tokens[][INT_MAX], int itr, char command[])
 {
+
     itr = check_redirection(input_tokens, itr);
 
     if (strcmp(input_tokens[0], "echo") == 0)
@@ -20,12 +21,35 @@ void execute(char input_tokens[][INT_MAX], int itr, char command[])
     {
         exec_ls(input_tokens, itr);
     }
+    else if (strcmp(input_tokens[0], "sig") == 0)
+    {
+        exec_sig(input_tokens, itr);
+    }
     else if (strcmp(input_tokens[0], "pinfo") == 0)
     {
         if (itr == 1)
             pinfo(0, 0);
         else
             pinfo(atoi(input_tokens[1]), 1);
+    }
+    else if (strcmp(input_tokens[0], "jobs") == 0)
+    {
+        int check = 0;
+        if (itr > 1)
+        {
+            for (int k = 1; k < itr; k++)
+            {
+                if (strcmp(input_tokens[k], "-r") == 0)
+                {
+                    check = 1;
+                }
+                else if (strcmp(input_tokens[k], "-s") == 0)
+                {
+                    check = -1;
+                }
+            }
+        }
+        jobs(check);
     }
     else
     {

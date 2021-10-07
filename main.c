@@ -10,6 +10,7 @@
 #include "redirect.h"
 #include "pipe.h"
 #include "jobs.h"
+#include "sig.h"
 
 int main()
 {
@@ -95,6 +96,10 @@ int main()
             else if (strcmp(input_tokens[0], "ls") == 0)
             {
                 exec_ls(input_tokens, itr);
+            }
+            else if (strcmp(input_tokens[0], "sig") == 0)
+            {
+                exec_sig(input_tokens, itr);
             }
             else if (strcmp(input_tokens[0], "pinfo") == 0)
             {
