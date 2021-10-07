@@ -11,6 +11,8 @@
 #include "pipe.h"
 #include "jobs.h"
 #include "sig.h"
+#include "fg.h"
+#include "bg.h"
 
 int main()
 {
@@ -100,6 +102,14 @@ int main()
             else if (strcmp(input_tokens[0], "sig") == 0)
             {
                 exec_sig(input_tokens, itr);
+            }
+            else if (strcmp(input_tokens[0], "fg") == 0)
+            {
+                exec_fg(atoi(input_tokens[1]), commands[i]);
+            }
+            else if (strcmp(input_tokens[0], "bg") == 0)
+            {
+                exec_bg(atoi(input_tokens[1]));
             }
             else if (strcmp(input_tokens[0], "pinfo") == 0)
             {

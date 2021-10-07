@@ -25,6 +25,14 @@ void execute(char input_tokens[][INT_MAX], int itr, char command[])
     {
         exec_sig(input_tokens, itr);
     }
+    else if (strcmp(input_tokens[0], "fg") == 0)
+    {
+        exec_fg(atoi(input_tokens[1]), command);
+    }
+    else if (strcmp(input_tokens[0], "bg") == 0)
+    {
+        exec_bg(atoi(input_tokens[1]));
+    }
     else if (strcmp(input_tokens[0], "pinfo") == 0)
     {
         if (itr == 1)

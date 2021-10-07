@@ -15,6 +15,8 @@
 #include "jobs.h"
 #include "pipe.h"
 #include "sig.h"
+#include "fg.h"
+#include "bg.c"
 void execute(char input_tokens[][INT_MAX], int itr, char command[]);
 
 #endif
