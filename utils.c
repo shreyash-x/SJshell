@@ -3,7 +3,6 @@
 
 void init_shell()
 {
-    system("clear");
     getcwd(home_path, INT_MAX);
 
     process_size = 0;
