@@ -75,6 +75,7 @@ void create_process_foreground(char input_tokens[][INT_MAX], char command[], int
     }
     else // pid > 0
     {
+        fg_process_pid = pid;
         // reset fds
         dup2(default_input_FD, STDIN_FILENO);
         dup2(default_output_FD, STDOUT_FILENO);
@@ -96,13 +97,12 @@ void create_process_foreground(char input_tokens[][INT_MAX], char command[], int
         // Resetting the signals to default
         signal(SIGTTOU, SIG_DFL);
         signal(SIGTTIN, SIG_DFL);
-
+        fg_process_pid = -1;
         if (WIFSTOPPED(status))
         {
             strcpy(process_arr[process_size].process_name, command);
             process_arr[process_size].pid = pid;
             process_size++;
-
             // Sending stop signal to the child
             kill(pid, SIGSTOP);
         }

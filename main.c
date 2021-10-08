@@ -13,6 +13,7 @@
 #include "sig.h"
 #include "fg.h"
 #include "bg.h"
+#include "signal_handler.h"
 
 int main()
 {
@@ -27,7 +28,12 @@ int main()
 
         // Taking Input
         size_t n = 0;
-        getline(&input_string, &n, stdin);
+        int ifcontrolD = getline(&input_string, &n, stdin);
+        if (ifcontrolD == -1)
+        {
+            printf("\n");
+            return 0;
+        }
         input_string[strlen(input_string) - 1] = '\0';
 
         // Extracting commands from input string
@@ -86,6 +92,10 @@ int main()
             else if (strcmp(input_tokens[0], "echo") == 0)
             {
                 get_echo(input_tokens, itr);
+            }
+            else if (strcmp(input_tokens[0], "quit") == 0)
+            {
+                return 0;
             }
             else if (strcmp(input_tokens[0], "pwd") == 0)
             {

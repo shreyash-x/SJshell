@@ -29,7 +29,7 @@ void pinfo(pid_t pid, int pid_given)
         char process_status[3];
         strcpy(process_status, arr3);
 
-        if (pid == getpgid(pid))
+        if (pid == fg_process_pid || pid == shellpid)
         {
             if_foreground = 1;
         }

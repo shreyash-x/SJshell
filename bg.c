@@ -15,6 +15,7 @@ void exec_bg(int job_number)
                 {
                     perror("");
                 }
+                found = 1;
                 break;
             }
         }

@@ -26,6 +26,8 @@ char prev_dir[INT_MAX];
 int process_size;
 int default_input_FD;
 int default_output_FD;
+pid_t shellpid, shellpgid;
+pid_t fg_process_pid;
 
 // Data Structures
 typedef struct process_info process_info;
