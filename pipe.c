@@ -30,6 +30,13 @@ int check_syntax(char input_tokens[][INT_MAX], int size)
 
 void exec_pipe(char input_tokens[][INT_MAX], int size, char command[])
 {
+    // for (int i = 0; i < size; i++)
+    // {
+    //     printf("%s-", input_tokens[i]);
+    // }
+    // printf("  %d,  %s\n", size, command);
+    // return;
+
     if (check_syntax(input_tokens, size) == -1)
     {
         fprintf(stderr, "Invalid Syntax\n");
@@ -38,12 +45,11 @@ void exec_pipe(char input_tokens[][INT_MAX], int size, char command[])
     char pipe_commands[30][INT_MAX];
     int num_cmds = 0;
     char *Token;
-    Token = strtok(command, "|");
-    while (Token != NULL)
+    char *rest = command;
+    while ((Token = strtok_r(rest, "|", &rest)))
     {
         strcpy(pipe_commands[num_cmds], Token);
         num_cmds++;
-        Token = strtok(NULL, "|");
     }
 
     int fd[num_cmds][2];
@@ -71,12 +77,11 @@ void exec_pipe(char input_tokens[][INT_MAX], int size, char command[])
             int itr = 0;
             char delimiter[5] = " \t";
             char *token;
-            token = strtok(pipe_commands[i], delimiter);
-            while (token != NULL)
+            char *rest2 = pipe_commands[i];
+            while ((token = strtok_r(rest2, delimiter, &rest2)))
             {
                 strcpy(tokens[itr], token);
                 itr++;
-                token = strtok(NULL, delimiter);
             }
             execute(tokens, itr, pipe_commands[i]);
             dup2(write_fd, STDOUT_FILENO);
@@ -94,12 +99,11 @@ void exec_pipe(char input_tokens[][INT_MAX], int size, char command[])
             int itr = 0;
             char delimiter[5] = " \t";
             char *token;
-            token = strtok(pipe_commands[i], delimiter);
-            while (token != NULL)
+            char *rest2 = pipe_commands[i];
+            while ((token = strtok_r(rest2, delimiter, &rest2)))
             {
                 strcpy(tokens[itr], token);
                 itr++;
-                token = strtok(NULL, delimiter);
             }
 
             execute(tokens, itr, pipe_commands[i]);
@@ -121,12 +125,11 @@ void exec_pipe(char input_tokens[][INT_MAX], int size, char command[])
             int itr = 0;
             char delimiter[5] = " \t";
             char *token;
-            token = strtok(pipe_commands[i], delimiter);
-            while (token != NULL)
+            char *rest2 = pipe_commands[i];
+            while ((token = strtok_r(rest2, delimiter, &rest2)))
             {
                 strcpy(tokens[itr], token);
                 itr++;
-                token = strtok(NULL, delimiter);
             }
 
             execute(tokens, itr, pipe_commands[i]);

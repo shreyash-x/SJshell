@@ -10,8 +10,8 @@ void create_process_background(char input_tokens[][INT_MAX], char command[], int
         temp_arr[i] = input_tokens[i];
         arr_size++;
     }
-    // for(int i=0;i<size;i++)
-    //     printf("%s\n",temp_arr[i]);
+    // for (int i = 0; i < size; i++)
+    //     printf("%s\n", temp_arr[i]);
 
     pid_t pid;
     pid = fork();
@@ -25,9 +25,10 @@ void create_process_background(char input_tokens[][INT_MAX], char command[], int
         // Setting the process group ID
         setpgid(0, 0);
 
-        if (execvp(input_tokens[0], temp_arr) == -1)
+        if (execvp(temp_arr[0], temp_arr) == -1)
         {
-            printf("%s: Command not found1\n", input_tokens[0]);
+            printf("%s: Command not found\n", temp_arr[0]);
+            exit(EXIT_FAILURE);
         }
     }
     else // pid > 0
@@ -41,6 +42,7 @@ void create_process_background(char input_tokens[][INT_MAX], char command[], int
         strcpy(process_arr[process_size].process_name, command);
         process_arr[process_size].pid = pid;
         process_size++;
+        sort_process_arr();
 
         printf("%d\n", pid);
     }
@@ -70,7 +72,8 @@ void create_process_foreground(char input_tokens[][INT_MAX], char command[], int
 
         if (execvp(input_tokens[0], temp_arr2) == -1)
         {
-            printf("%s: Command not found2\n", input_tokens[0]);
+            printf("%s: Command not found\n", input_tokens[0]);
+            exit(EXIT_FAILURE);
         }
     }
     else // pid > 0
@@ -103,6 +106,7 @@ void create_process_foreground(char input_tokens[][INT_MAX], char command[], int
             strcpy(process_arr[process_size].process_name, command);
             process_arr[process_size].pid = pid;
             process_size++;
+            sort_process_arr();
             // Sending stop signal to the child
             kill(pid, SIGSTOP);
         }

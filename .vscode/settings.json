@@ -6,6 +6,8 @@
         "istream": "c",
         "functional": "c",
         "tuple": "c",
-        "utility": "c"
+        "utility": "c",
+        "utils.h": "c",
+        "type_traits": "c"
     }
 }

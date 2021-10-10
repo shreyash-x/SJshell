@@ -25,6 +25,8 @@ void exec_sig(char input_tokens[][INT_MAX], int size)
                 {
                     perror("");
                 }
+                printf("%d killed\n", process_arr[i].pid);
+                process_arr[i].pid = -1;
                 found = 1;
                 break;
             }

@@ -17,6 +17,8 @@
 #include "sig.h"
 #include "fg.h"
 #include "bg.h"
+#include "replay.h"
 void execute(char input_tokens[][INT_MAX], int itr, char command[]);
+void execute2(char input_tokens[][INT_MAX], int itr, char command[]);
 
 #endif

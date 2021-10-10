@@ -12,7 +12,8 @@
 ---
  ### cd.c
  - This file consists of the implementation of the cd command.
-
+ ### execute.c
+ - This file checks the given input and calls the required functions as per the input.
  ### echo.c
  - This file consists of the implementation of the echo command.
  - This echo command ignores extra spaces
@@ -37,5 +38,21 @@
  - `repeat n <command>` executes the command n times.
  ### trackbg.c
  - This file tracks when a background process exits and displays its message on the shell.
+ ### redirect.c
+ - This file provides the functionality of input output redirection.
+ ### pipe.c
+ - This file enables piping functionality in c.
+ ### jobs.c
+ - This file consists of the implementation of the jobs command.
+ ### sig.c
+ - This file consists of the implementation of the sig command.
+ ### signal_handler.c
+ - This file handles Ctrl+C and Ctrl+Z signals.
+ ### fg.c
+ - This file consists of the implementation of the fg command.
+ ### bg.c
+ - This file consists of the implementation of the bg command.
+ ### replay
+ - This file consists of the implementation of the replay command.
  ### utils.c and utils.h
  - This file consists of the header files, global variables and also a function to initiate the shell.

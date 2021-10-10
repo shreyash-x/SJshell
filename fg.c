@@ -40,6 +40,7 @@ void exec_fg(int job_number, char command[])
                     strcpy(process_arr[process_size].process_name, command);
                     process_arr[process_size].pid = pid;
                     process_size++;
+                    sort_process_arr();
 
                     // Sending stop signal to the child
                     kill(pid, SIGSTOP);

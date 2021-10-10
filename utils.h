@@ -20,7 +20,7 @@
 #include <fcntl.h>
 
 // Global values
-#define INT_MAX 1009
+#define INT_MAX 509
 char home_path[INT_MAX];
 char prev_dir[INT_MAX];
 int process_size;
@@ -40,5 +40,6 @@ process_info process_arr[INT_MAX];
 
 // Functions
 void init_shell();
+void sort_process_arr();
 
 #endif
